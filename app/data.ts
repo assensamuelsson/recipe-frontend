@@ -33,3 +33,9 @@ export const createRecipe = async (recipe: RecipeWithoutId): Promise<RecipeWithI
   const result = await response.json() as RecipeWithId;
   return result;
 };
+
+export const deleteRecipe = async (id: string): Promise<void> => {
+  await fetch(`${backendOrigin}/recipes/${id}`, {
+    method: 'DELETE'
+  });
+};
