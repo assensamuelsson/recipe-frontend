@@ -8,7 +8,7 @@ export type RecipeWithId = RecipeWithoutId & {
   id: string;
 }
 
-const backendOrigin = 'http://192.168.0.2:5021';
+const backendOrigin = process.env.BACKEND_ORIGIN;
 
 export const getAllRecipes = async (): Promise<RecipeWithId[]> => {
   const response = await fetch(`${backendOrigin}/recipes`);
