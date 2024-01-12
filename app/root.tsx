@@ -3,21 +3,13 @@ import {
   Links,
   LiveReload,
   Meta,
-  Link,
-  Outlet,
   Scripts,
   ScrollRestoration,
-  json,
-  useLoaderData,
-  useNavigation,
+  Outlet,
+  Link,
 } from "@remix-run/react";
 
-import { getAllRecipes  } from "./data";
-
 export default function App() {
-  const { recipes } = useLoaderData<typeof loader>();
-  const navigation = useNavigation();
-
   return (
     <html lang="sv">
       <head>
@@ -28,7 +20,9 @@ export default function App() {
       </head>
       <body>
         <div id="sidebar">
-          <h1>Mumsiga recept</h1>
+          <Link to="/">
+            <h1>Mumsiga recept</h1>
+          </Link>
           <div>
             <Form id="search-form" role="search">
               <input
@@ -39,25 +33,12 @@ export default function App() {
                 name="q"
               ></input>
             </Form>
-            <Form method="post">
-              <button type="submit">Nytt</button>
-            </Form>
+            <Link to="/nytt">
+              <button >Nytt</button>
+            </Link>
           </div>
-          <nav>
-            { recipes.length ? (
-              <ul>
-                {recipes.map(recipe => (
-                  <li key={recipe.id}>
-                    <Link to={`recept/${recipe.id}`}>
-                      {recipe.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : <p>Inga recept än</p>}
-          </nav>
         </div>
-        <div id="detail" className={navigation.state === "loading" ? "loading" : ""}>
+        <div id="detail">
           <Outlet />
         </div>
         <ScrollRestoration />
@@ -66,9 +47,4 @@ export default function App() {
       </body>
     </html>
   );
-}
-
-export const loader = async () => {
-  const recipes = await getAllRecipes();
-  return json({ recipes });
 }
