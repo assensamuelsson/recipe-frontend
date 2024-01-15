@@ -1,3 +1,4 @@
+import { LinksFunction } from "@remix-run/node";
 import {
   Form,
   Links,
@@ -9,6 +10,12 @@ import {
   Link,
 } from "@remix-run/react";
 
+import appStylesHref from "~/app.css";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appStylesHref },
+];
+
 export default function App() {
   return (
     <html lang="sv">
@@ -19,11 +26,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div id="sidebar">
+        <div id="title">
           <Link to="/">
             <h1>Mumsiga recept</h1>
           </Link>
-          <div>
+          <div id="header">
             <Form id="search-form" role="search">
               <input
                 id="q"
@@ -34,7 +41,7 @@ export default function App() {
               ></input>
             </Form>
             <Link to="/nytt">
-              <button >Nytt</button>
+              <button className="button button--primary">Nytt</button>
             </Link>
           </div>
         </div>

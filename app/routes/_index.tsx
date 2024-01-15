@@ -1,21 +1,16 @@
-import { Link, json, useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
+import RecipeLink from "~/components/recipe-link";
 import { getAllRecipes } from "~/data";
 
 export default function Index () {
   const { recipes } = useLoaderData<typeof loader>();
 
   return (
-    <nav>
+    <nav className="recipe-list">
       { recipes.length ? (
-        <ul>
-          {recipes.map(recipe => (
-            <li key={recipe.id}>
-              <Link to={`recept/${recipe.id}`}>
-                {recipe.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        recipes.map(recipe => (
+            <RecipeLink key={recipe.id} id={recipe.id} name={recipe.name} />
+        ))
       ) : <p>Inga recept än</p>}
     </nav>
   )
